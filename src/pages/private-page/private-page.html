@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Page One</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="has-header has-footer content-stable" >
+   <button type="submit" (click)="userlist()"><ion-icon name="back"></ion-icon> Back</button>
+  <ion-list>
+
+        <ion-item *ngFor="let content of messages" class="messages">
+
+          <ion-avatar item-left>
+      <img src="{{avatarUrl(content.user)}}">
+    </ion-avatar>
+            <h2 class="message">{{content.content}}</h2>
+            <p>{{content.date }}</p>
+              
+        </ion-item>
+      
+    </ion-list>
+
+
+</ion-content>
+<ion-footer >
+  <form [formGroup]="messageForm" (ngSubmit)="sendMessage(messageForm.value)">
+<ion-toolbar position="bottom">
+    <ion-textarea placeholder="Type your message here" formControlName="message" name="message"></ion-textarea>
+    <ion-buttons end>
+        <button type="submit" royal>Send<ion-icon name="send"></ion-icon></button>
+    </ion-buttons>
+</ion-toolbar>
+</form>
+</ion-footer>
