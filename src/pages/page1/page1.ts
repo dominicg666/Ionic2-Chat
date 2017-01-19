@@ -56,7 +56,7 @@ export class Page1 {
             this.pubNubService.subscribe(this.channel).subscribe((event: PubNubEvent) => {
                 if (event.type === PubNubEventType.MESSAGE) {
                     this.messages.push(this.createMessage(event.value));
-
+                    this.scrollToTop();
                 }
             }, (error) => {
                 console.log(JSON.stringify(error));
