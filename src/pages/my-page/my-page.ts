@@ -19,7 +19,7 @@ export class MyPagePage {
   private todo:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,private formBuilder: FormBuilder) {
     this.todo = this.formBuilder.group({
-      title: ['', Validators.required]
+      title: ['', Validators.compose([Validators.maxLength(10), Validators.pattern('[a-zA-Z]*'), Validators.required])]
     });
   }
 
