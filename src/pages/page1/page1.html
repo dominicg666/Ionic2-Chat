@@ -4,7 +4,13 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{channel}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="userlist()">
+        <ion-icon name="people"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
+  
 </ion-header>
 
 <ion-content class="has-header has-footer content-stable" >

@@ -16,15 +16,15 @@ export class Page2 {
   items: Array<any>;
 
   channel:string = 'group1-ch';
-
+  currentUser:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,private platform: Platform,private pubNubService:PubNubService) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
-
+    this.currentUser=navParams.get('uuid');
     // Let's populate this page with some filler content for funzies
     this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
     'american-football', 'boat', 'bluetooth', 'build'];
-    this.pubNubService.connectionuuid(navParams.get('uuid'));
+    this.pubNubService.connectionuuid(this.currentUser);
     this.items = [];
     this.onLine();
     
@@ -35,11 +35,11 @@ export class Page2 {
 
           this.pubNubService.here_now(this.channel).subscribe((event: PubNubEvent) => {
                  let user:Array<any> = [];
-               // console.log(event);
+                 console.log(event.value);
                 for (let i = 0; i < event.value.uuids.length; i++) {
                     user.push(this.createUser(event.value.uuids[i]));
                 }
-                this.items = user;
+               // this.items = user;
 
             }, (error) => {
                 console.log(JSON.stringify(error));
@@ -49,8 +49,8 @@ export class Page2 {
                 console.log(event);
 
                 if (event.type === PubNubEventType.PRESENCE) {
-                  
-                   // this.messages.push(this.createMessage(event.value));
+                  //console.log(event.value.uuid);
+                    this.items.push(this.createUser(event.value));
                 }
             }, (error) => {
                 console.log(JSON.stringify(error));
@@ -59,11 +59,14 @@ export class Page2 {
         });
     }
   avatarUrl(uuid) {
-        return '//robohash.org/' + uuid + '?set=set2&bgset=bg2&size=70x70';
+        return 'https://robohash.org/' + uuid + '?set=set2&bgset=bg2&size=70x70';
     };
     createUser(user:any):any {
         return {
-            user:user
+            user:user.uuid,
+            action:user.action,
+            timestamp:user.timestamp,
+            occupancy:user.occupancy,
         };
     }
 

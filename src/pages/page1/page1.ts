@@ -73,7 +73,7 @@ export class Page1 {
     }
     // Fetching a uniq random avatar from the robohash.org service.
     avatarUrl(uuid) {
-        return '//robohash.org/' + uuid + '?set=set2&bgset=bg2&size=70x70';
+        return 'https://robohash.org/' + uuid + '?set=set2&bgset=bg2&size=70x70';
     };
     
     sendMessage(messageContent:string) {
@@ -98,7 +98,7 @@ export class Page1 {
        }
     }
     userlist(){
-      this.navCtrl.setRoot(Page2,{"uuid":this.uuid});
+      this.navCtrl.push(Page2,{"uuid":this.uuid});
     }
     scrollToTop() {
         var THIS=this.content;

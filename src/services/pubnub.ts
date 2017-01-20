@@ -43,6 +43,9 @@ export class PubNubService {
         this.pubnub.subscribe({
             channel : channel,
             withPresence: true,
+            presence : (message) => {
+                eventEmitter.emit(new PubNubEvent(PubNubEventType.PRESENCE, channel, message));
+            },
             message : (message) => {
                 eventEmitter.emit(new PubNubEvent(PubNubEventType.MESSAGE, channel, message));
             },
